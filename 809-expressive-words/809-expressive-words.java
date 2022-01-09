@@ -1,31 +1,36 @@
 class Solution {
-     public int expressiveWords(String S, String[] words) {
+     public int expressiveWords(String s, String[] words) {
+         if(words.length == 0) return 0;
         int res = 0;
-        for (String word : words) {
-            if (check(S, word)) res++;
+        char[] str1 = s.toCharArray();
+        for(String w : words) {
+            if(helper(str1, w.toCharArray())) {
+                res++;
+            }
         }
         return res;
     }
     
-    public boolean check(String S, String word) {
-        int i = 0, j = 0, m = S.length(), n = word.length();
-        while (i < m && j < n) {
-            if (S.charAt(i) != word.charAt(j)) return false;
-            else {
-                if (i == m - 1 && j == n - 1) return true;
-                int preS = i, preWord = j;
-                while (i < m && S.charAt(i) == S.charAt(preS)) {
-                    i++;
-                }
-                while (j < n && word.charAt(j) == word.charAt(preWord)) {
-                    j++;
-                }
-                int countS = i - preS, countW = j - preWord;
-                if (countW > countS) return false;
-                if (countS == 2 && countW == 1) return false;
-                
+    public boolean helper(char[] str1, char[] word) {
+        int l1 = 0;
+        int l2= 0;
+        while(l1<str1.length && l2<word.length){
+            if(str1[l1]!=word[l2]) return false;
+            int r1 = l1;
+            int r2 = l2;
+            
+            while(r1<str1.length && str1[l1]==str1[r1]){
+                r1++;
             }
+            while(r2<word.length && word[l2]==word[r2]){
+                r2++;
+            }
+            if(r1-l1==r2-l2 || (r1-l1>=3 && r1-l1>=r2-l2)){
+                l1 = r1;
+                l2 = r2;
+            }
+            else return false;
         }
-        return i == m && j == n;
+        return l1==str1.length && l2==word.length;
     }
 }
