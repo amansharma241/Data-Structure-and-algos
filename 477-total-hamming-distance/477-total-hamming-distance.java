@@ -1,12 +1,16 @@
 class Solution {
     public int totalHammingDistance(int[] nums) {
-        int total = 0, n = nums.length;
-    for (int j=0;j<32;j++) {
-        int bitCount = 0;
-        for (int i=0;i<n;i++) 
-            bitCount += (nums[i] >> j) & 1;
-        total += bitCount*(n - bitCount);
-    }
-    return total;
+        int n = nums.length;
+        int oneCnt = 0, zeroCnt = 0;
+        int ret = 0;
+        for (int i = 0; i < 30; i++) {
+            oneCnt = 0;
+            for (int j = 0; j < nums.length; j++) {
+                oneCnt += (nums[j] >> i) & 1;
+            }
+            zeroCnt = n - oneCnt;
+            ret += oneCnt * zeroCnt;
+        }
+        return ret;
     }
 }
