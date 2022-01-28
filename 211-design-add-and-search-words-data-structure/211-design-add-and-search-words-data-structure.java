@@ -1,40 +1,37 @@
-public class WordDictionary {
-    public class TrieNode {
-        public TrieNode[] children = new TrieNode[26];
-        public String item = "";
+class WordDictionary {
+    private final List[] list;
+    
+
+    public WordDictionary() {
+        list = new List[501];
+        for (int i = 0; i < list.length; i++)
+            list[i] = new LinkedList<>();
     }
     
-    private TrieNode root = new TrieNode();
-
     public void addWord(String word) {
-        TrieNode node = root;
-        for (char c : word.toCharArray()) {
-            if (node.children[c - 'a'] == null) {
-                node.children[c - 'a'] = new TrieNode();
-            }
-            node = node.children[c - 'a'];
-        }
-        node.item = word;
-    }
-
-    public boolean search(String word) {
-        return match(word.toCharArray(), 0, root);
+        List<String> lst = list[word.length()];
+        lst.add(word);
     }
     
-    private boolean match(char[] chs, int k, TrieNode node) {
-        if (k == chs.length) return !node.item.equals("");   
-        if (chs[k] != '.') {
-            return node.children[chs[k] - 'a'] != null && match(chs, k + 1, node.children[chs[k] - 'a']);
-        } else {
-            for (int i = 0; i < node.children.length; i++) {
-                if (node.children[i] != null) {
-                    if (match(chs, k + 1, node.children[i])) {
-                        return true;
-                    }
-                }
-            }
+    public boolean search(String word) {
+        List<String> lst = list[word.length()];
+        for (String wrd : lst) {
+            if (compare(wrd, word))
+                return true;
         }
         return false;
+    }
+    
+    private boolean compare(String source, String pattern) {
+        for (int i = 0; i < source.length(); i++) {
+            char ptn = pattern.charAt(i);
+            if (ptn == '.')
+                continue;
+            
+            if (source.charAt(i) != ptn)
+                return false;
+        }
+        return true;
     }
 }
 
