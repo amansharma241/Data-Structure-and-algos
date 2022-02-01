@@ -16,9 +16,11 @@ class RandomizedSet {
     public boolean remove(int val) {
         if(!map.containsKey(val)) return false;
         int idx = map.get(val);
+        if(idx!=list.size()-1){
         Collections.swap(list,idx,list.size()-1);
         int swapval  = list.get(idx);
         map.put(swapval,idx);
+        }
         list.remove(list.size()-1);
         map.remove(val);
         return true;
