@@ -9,28 +9,25 @@
  * }
  */
 class Solution {
-      ListNode mergeTwoLists(ListNode l1, ListNode l2){
-        if(l1 == null) return l2;
-        if(l2 == null) return l1;
-        
-        if(l1.val <= l2.val){
-            l1.next = mergeTwoLists(l1.next, l2);
-            return l1;
-        } else {
-            l2.next = mergeTwoLists(l1, l2.next);
-            return l2;
-        }
-    }
-    
     public ListNode mergeKLists(ListNode[] lists) {
-        if(lists.length == 0) return null;
+       PriorityQueue<ListNode> pq = new PriorityQueue<>((a,b)->{
+           return a.val-b.val;
+       });
         
-        ListNode sortedList = lists[0];
+        ListNode dummy = new ListNode(-1);
+        ListNode prev = dummy;
         
-        for(int i=1; i<lists.length; i++){
-            sortedList = mergeTwoLists(sortedList, lists[i]);   
+        for(ListNode l: lists){
+            if(l!=null) pq.add(l);
         }
-        
-        return sortedList;
+        while(!pq.isEmpty()){
+            ListNode temp = pq.remove();
+            prev.next = temp;
+            temp = temp.next;
+            prev = prev.next;
+            
+            if(temp!=null) pq.add(temp);
+        }
+        return dummy.next;
     }
 }
