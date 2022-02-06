@@ -1,0 +1,1 @@
+basic idea is, sum mein se root.val ki value minus krte jao. jaise hi leaf node pohocho check kro ki jo sum ki value bach rhi hai kya wo leaf node ki value ke equal hai kya. agar hai to return true.
