@@ -15,10 +15,15 @@ class Solution {
                 temp.add(nums[hi]);
                 list.add(temp);
             
-            while(lo<hi && nums[lo]==nums[lo+1]) lo++;
-            while(lo<hi && nums[hi]==nums[hi-1]) hi--;
+            while(lo<hi && nums[lo]==nums[lo+1]){ 
+                lo++;
+            }
+            while(lo<hi && nums[hi]==nums[hi-1]) {
+                hi--;
+            }
+            lo++; hi--;                
         }
-            if(nums[i] + nums[lo] + nums[hi]>0) hi--;
+           else if(nums[i] + nums[lo] + nums[hi]>0) hi--;
             else lo++;    
         }
         
