@@ -27,8 +27,10 @@ class Solution {
                         temp.add(nums[hi]);
                         res.add(temp);
                         
-                        while(lo<hi && nums[lo]==temp.get(2)) lo++;
-                        while(lo<hi && nums[hi]==temp.get(3)) hi--;
+                        while(lo<hi && nums[lo]==nums[lo+1]) lo++;
+                        while(lo<hi && nums[hi]==nums[hi-1]) hi--;
+                        lo++;
+                        hi--;
                     }
                 }
                 while(j+1<n && nums[j]==nums[j+1]) j++;
