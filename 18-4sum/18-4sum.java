@@ -6,7 +6,7 @@ class Solution {
         
         Arrays.sort(nums);
         
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n-3;i++){
             if(i>0 && nums[i-1]==nums[i]) continue;
             int target_3 = target - nums[i];
             for(int j = i+1;j<n;j++){
