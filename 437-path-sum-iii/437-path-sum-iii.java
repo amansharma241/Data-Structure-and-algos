@@ -31,8 +31,9 @@ class Solution {
         }
         map.put(currsum,map.getOrDefault(currsum,0)+1);
         
-        count+=helper(root.left,target,currsum,new HashMap<>(map));
-        count+=helper(root.right,target,currsum,new HashMap<>(map));
+        count+=helper(root.left,target,currsum,map);
+        count+=helper(root.right,target,currsum,map);
+        map.put(currsum,map.get(currsum)-1);
         return count;
     }
 }
