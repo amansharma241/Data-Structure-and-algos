@@ -23,10 +23,12 @@ class Solution {
     public void helper(TreeNode root,List<List<Integer>> res, List<Integer> temp,int target){
         if(root==null) return;
         temp.add(root.val);
-        if(root.left==null && root.right==null && root.val==target) res.add(new ArrayList<>(temp));
-        
-        helper(root.left,res,temp,target-root.val);
-        helper(root.right,res,temp,target-root.val);
-        temp.remove(temp.size()-1);
+        if(root.left==null && root.right==null && root.val==target){
+            res.add(new ArrayList<>(temp)); 
+           
+        }
+        helper(root.left,res,new ArrayList<>(temp),target-root.val);
+        helper(root.right,res,new ArrayList<>(temp),target-root.val);
+        //temp.remove(temp.size()-1);
     }
 }
