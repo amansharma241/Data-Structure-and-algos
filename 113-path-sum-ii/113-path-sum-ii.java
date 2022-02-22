@@ -29,6 +29,6 @@ class Solution {
         }
         helper(root.left,res,new ArrayList<>(temp),target-root.val);
         helper(root.right,res,new ArrayList<>(temp),target-root.val);
-        //temp.remove(temp.size()-1);
+        temp.remove(temp.size()-1);
     }
 }
