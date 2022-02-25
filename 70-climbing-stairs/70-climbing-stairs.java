@@ -12,8 +12,8 @@ class Solution {
         int num1 = helper(n-1,dp);
         int num2 = helper(n-2,dp);
         int ans = num1 + num2;
-        dp[n] = ans;
-        return ans;
+        
+        return dp[n] = ans;
     }
     
 }
