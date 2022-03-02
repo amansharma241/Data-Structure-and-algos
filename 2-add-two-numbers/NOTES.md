@@ -1,1 +1,1 @@
-jb tk kisi ek mein bhi jaan ho tb tk sum variable mein values add krte rho. jaise hi while loop se bahar aaoge simple check if carry>0, then ek naya node banakr usme carry ki value daal do.
+​
