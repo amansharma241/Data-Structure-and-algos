@@ -10,7 +10,7 @@
  */
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
-         ListNode sentinel = new ListNode(0, head);
+        ListNode sentinel = new ListNode(0, head);
         ListNode pred = sentinel;
 
         while (head != null) {
@@ -31,6 +31,6 @@ class Solution {
             head = head.next;
         }
 
-        return sentinel.next;
+        return sentinel.next; 
     }
 }
