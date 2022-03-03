@@ -56,8 +56,8 @@ class Solution {
             carry = sum / 10;
         }
         
-        if(carry == 1){
-            ListNode newNode = new ListNode(1);
+        if(carry >0){
+            ListNode newNode = new ListNode(carry);
             newNode.next = head.next;
             head.next = newNode;
         }
