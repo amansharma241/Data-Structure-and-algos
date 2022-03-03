@@ -38,7 +38,7 @@ class Solution {
         int carry = 0;
         while(!stack1.empty() || !stack2.empty()){
             
-            int sum = carry;
+            int sum = 0;;
             
             if(!stack1.empty()){
                 sum += stack1.pop().val;
@@ -47,7 +47,7 @@ class Solution {
             if(!stack2.empty()){
                 sum += stack2.pop().val;
             }
-            
+            sum+=carry;
             
             ListNode newNode = new ListNode(sum % 10);
             newNode.next = head.next;
