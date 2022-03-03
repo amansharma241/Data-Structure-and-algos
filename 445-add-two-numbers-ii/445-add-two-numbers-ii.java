@@ -10,62 +10,60 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode curr1 = l1;
-        ListNode curr2 = l2;
-        
-        // add in stack
-        Stack<ListNode> stack1 = new Stack();
-        Stack<ListNode> stack2 = new Stack();
-        while(curr1 != null || curr2 != null){
-            if(curr1 != null){
-                stack1.push(curr1);
-                curr1 = curr1.next;
-            }
-            
-            if(curr2 != null){
-                stack2.push(curr2);
-                curr2 = curr2.next;
-            }
+    // We will use sizes to understand which list's nodes should be frozen for a while.
+    int s1 = size(l1);
+    int s2 = size(l2);
+    ListNode resHead = null;
+    ListNode n = null;
+    while (l1 != null || l2 != null) {
+        int v1 = 0;
+        int v2 = 0;
+        if (s1 >= s2) {
+            v1 = l1 != null ? l1.val : 0;
+            l1 = l1.next;
+            s1--;
         }
-        
-        return addTwoNumbers(stack1, stack2);
+        // Comparing with s1 + 1 since s1 might be decremented previously
+        if (s2 >= s1 + 1) {
+            v2 = l2 != null ? l2.val : 0;
+            l2 = l2.next;
+            s2--;
+        }
+        // Creating the resulting list in the reversed order.
+        n = new ListNode(v1 + v2);
+        n.next = resHead;
+        resHead = n;
     }
-    
-    private ListNode  addTwoNumbers(Stack<ListNode> stack1, Stack<ListNode> stack2){
-        // ListNode dummyNode = new ListNode();
-        ListNode head = null;
-        
-        int carry = 0;
-        while(!stack1.empty() || !stack2.empty()){
-            
-            int sum = 0;;
-            
-            if(!stack1.empty()){
-                sum += stack1.pop().val;
-            }
-            
-            if(!stack2.empty()){
-                sum += stack2.pop().val;
-            }
-            sum+=carry;
-            
-            ListNode newNode = new ListNode(sum % 10);
-//             newNode.next = head.next;
-//             head.next = newNode;
-           if(head==null) head = newNode;
-            else{
-                newNode.next = head;
-                head = newNode;
-            }
-            carry = sum / 10;
+    int carry = 0;
+    resHead = null;
+    // Now, let's perform the normalization.
+    while (n != null) {
+        n.val += carry;
+        if (n.val >= 10) {
+            n.val = n.val % 10;
+            carry = 1;
+        } else {
+            carry = 0;
         }
-        
-        if(carry >0){
-            ListNode newNode = new ListNode(carry);
-            newNode.next = head;
-            head = newNode;
-        }
-        
-        return head;
+        ListNode buf = n.next;
+        n.next = resHead;
+        resHead = n;
+        n = buf;
     }
+    if (carry > 0) {
+        n = new ListNode(1);
+        n.next = resHead;
+        resHead = n;
+    }
+    return resHead;
+}
+
+private int size(ListNode l) {
+    int s = 0;
+    while (l != null) {
+        l = l.next;
+        s++;
+    }
+    return s;
+}
 }
