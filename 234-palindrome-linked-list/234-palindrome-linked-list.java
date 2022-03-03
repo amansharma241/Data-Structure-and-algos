@@ -18,9 +18,9 @@ class Solution {
             slow = slow.next;
             fast = fast.next.next;
         }
-        if (fast != null) { // odd nodes: let right half smaller
-        slow = slow.next;
-    }
+    //     if (fast != null) { // odd nodes: let right half smaller
+    //     slow = slow.next;
+    // }
         //ListNode mid = slow;
         ListNode tail = reverse(slow);
         
