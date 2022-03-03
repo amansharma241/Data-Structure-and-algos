@@ -10,30 +10,58 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-           Stack<Integer> s1 = new Stack<Integer>();
-        Stack<Integer> s2 = new Stack<Integer>();
+        ListNode curr1 = l1;
+        ListNode curr2 = l2;
         
-        while(l1 != null) {
-            s1.push(l1.val);
-            l1 = l1.next;
-        };
-        while(l2 != null) {
-            s2.push(l2.val);
-            l2 = l2.next;
+        // add in stack
+        Stack<ListNode> stack1 = new Stack();
+        Stack<ListNode> stack2 = new Stack();
+        while(curr1 != null || curr2 != null){
+            if(curr1 != null){
+                stack1.push(curr1);
+                curr1 = curr1.next;
+            }
+            
+            if(curr2 != null){
+                stack2.push(curr2);
+                curr2 = curr2.next;
+            }
         }
         
-        int sum = 0;
-        ListNode list = new ListNode(0);
-        while (!s1.empty() || !s2.empty()) {
-            if (!s1.empty()) sum += s1.pop();
-            if (!s2.empty()) sum += s2.pop();
-            list.val = sum % 10;
-            ListNode head = new ListNode(sum / 10);
-            head.next = list;
-            list = head;
-            sum /= 10;
+        return addTwoNumbers(stack1, stack2);
+    }
+    
+    private ListNode  addTwoNumbers(Stack<ListNode> stack1, Stack<ListNode> stack2){
+        ListNode dummyNode = new ListNode();
+        ListNode head = dummyNode;
+        
+        int carry = 0;
+        while(!stack1.empty() || !stack2.empty()){
+            
+            int sum = carry;
+            
+            if(!stack1.empty()){
+                sum += stack1.pop().val;
+            }
+            
+            if(!stack2.empty()){
+                sum += stack2.pop().val;
+            }
+            
+            
+            ListNode newNode = new ListNode(sum % 10);
+            newNode.next = head.next;
+            head.next = newNode;
+            
+            carry = sum / 10;
         }
         
-        return list.val == 0 ? list.next : list;
+        if(carry == 1){
+            ListNode newNode = new ListNode(1);
+            newNode.next = head.next;
+            head.next = newNode;
+        }
+        
+        return head.next;
     }
 }
