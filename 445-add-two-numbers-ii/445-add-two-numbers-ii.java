@@ -32,8 +32,8 @@ class Solution {
     }
     
     private ListNode  addTwoNumbers(Stack<ListNode> stack1, Stack<ListNode> stack2){
-        ListNode dummyNode = new ListNode();
-        ListNode head = dummyNode;
+        // ListNode dummyNode = new ListNode();
+        ListNode head = null;
         
         int carry = 0;
         while(!stack1.empty() || !stack2.empty()){
@@ -50,18 +50,22 @@ class Solution {
             sum+=carry;
             
             ListNode newNode = new ListNode(sum % 10);
-            newNode.next = head.next;
-            head.next = newNode;
-            
+//             newNode.next = head.next;
+//             head.next = newNode;
+           if(head==null) head = newNode;
+            else{
+                newNode.next = head;
+                head = newNode;
+            }
             carry = sum / 10;
         }
         
         if(carry >0){
             ListNode newNode = new ListNode(carry);
-            newNode.next = head.next;
-            head.next = newNode;
+            newNode.next = head;
+            head = newNode;
         }
         
-        return head.next;
+        return head;
     }
 }
