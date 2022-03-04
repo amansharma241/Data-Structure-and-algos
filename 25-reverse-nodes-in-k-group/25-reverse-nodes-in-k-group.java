@@ -10,24 +10,28 @@
  */
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
-      ListNode curr = head;
-    int count = 0;
-    while (curr != null && count != k) { // find the k+1 node
-        curr = curr.next;
-        count++;
-    }
-    if (count == k) { // if k+1 node is found
-        curr = reverseKGroup(curr, k); // reverse list with k+1 node as head
-        // head - head-pointer to direct part, 
-        // curr - head-pointer to reversed part;
-        while (count-- > 0) { // reverse current k-group: 
-            ListNode tmp = head.next; // tmp - next head in direct part
-            head.next = curr; // preappending "direct" head to the reversed list 
-            curr = head; // move head of reversed part to a new node
-            head = tmp; // move "direct" head to the next node in direct part
+        if(head==null || head.next==null || k==1) return head;
+        ListNode dummy = new ListNode(-1,head);
+        ListNode pre = dummy,nex = dummy,curr = head;
+        
+        int count = 0;
+        while(curr!=null){
+            count++;
+            curr = curr.next;
         }
-        head = curr;
-    }
-    return head;   
+        curr = head;
+        while(count>=k){
+            curr = pre.next;
+            nex = curr.next;
+            for(int i=1;i<k;i++){
+                curr.next = nex.next;
+                nex.next = pre.next;
+                pre.next = nex;
+                nex = curr.next;
+            }
+            pre = curr;
+            count-=k;
+        }
+        return dummy.next;
     }
 }
