@@ -18,8 +18,8 @@ class Solution {
             tail = tail.next;
         }
         tail.next = head;
-        k = k%len;
-        k = len-k;
+        
+        k = len-k%len;
         ListNode curr = head;
         while(k-- > 1){
             curr = curr.next;
