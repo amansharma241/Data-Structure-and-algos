@@ -19,7 +19,7 @@ class Solution {
         first.next = second.next;
         current.next = second;
         current.next.next = first;
-        current = current.next.next;
+        current = first;
     }
     return dummy.next;
     }
