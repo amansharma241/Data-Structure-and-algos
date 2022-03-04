@@ -18,7 +18,7 @@ class Solution {
         ListNode second = current.next.next;
         first.next = second.next;
         current.next = second;
-        current.next.next = first;
+        second.next = first;
         current = first;
     }
     return dummy.next;
