@@ -1,41 +1,43 @@
 class MinStack {
+    int top;
+    int min=Integer.MAX_VALUE;
+    List<Integer> l1= new ArrayList<Integer>();
 
-    /** initialize your data structure here. */
-    class Node{
-        int val;
-        int min;
-        Node next;
-        
-        public Node(int val , int min , Node next){
-            this.val = val;
-            this.min = min;
-            this.next = next;
-        }
-    }
-    
-    private Node head;
-    
     public MinStack() {
-        head = null;
+        this.top=-1;
     }
     
     public void push(int val) {
-        if(head == null)
-            head = new Node(val ,val ,null);
-        else
-            head = new Node(val , Math.min(val ,head.min), head);
+        l1.add(val);
+        top++;
+        if(val<min){
+            min=val;
+        }
     }
     
     public void pop() {
-        head = head.next;
+        if(l1.get(top)==min){
+            l1.remove(top);
+            top--;
+            min=Integer.MAX_VALUE;
+            for(int i: l1){
+                if(i<min){
+                    min=i;
+                }
+            }
+        }
+        else{
+        l1.remove(top);
+        top--;
+        }
     }
     
     public int top() {
-        return head.val;
+        return l1.get(top);
     }
     
     public int getMin() {
-        return head.min;
+        return min;
     }
 }
 
