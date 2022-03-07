@@ -31,7 +31,10 @@ class Solution{
     static int matrixMultiplication(int N, int arr[])
     {
         // code here
-        int [][] dp = new int[N][N];
+         int [][] dp = new int[N][N];
+        // for(int i=1;i<arr.length;i++){
+        //     for(int j = arr.length)
+        // }
         return helper(1,N-1,arr,dp);
     }
     public static int helper(int i,int j,int[]arr,int [][] dp){
