@@ -9,6 +9,7 @@ class Solution {
                 else dp[i+1][j+1] = Math.min(dp[i][j],Math.min(dp[i+1][j],dp[i][j+1])) + 1;
             }
         }
+        // basically dp[i][j] store krega dp[i-1][j-1] ka answer..
         return dp[word1.length()][word2.length()];
         
         //return helper(s1,s2,0,0,dp); recursive solution....
