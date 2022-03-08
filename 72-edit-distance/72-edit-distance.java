@@ -1,11 +1,20 @@
 class Solution {
-    public int minDistance(String s1, String s2) {
-        if(s1==null || s2==null) return 0;
-        // int len = s1.length()>s2.length()? s1.length() : s2.length();
-         int [][] dp = new int [s1.length()+1][s2.length()+1];
-        // return len - lcs(s1,s2,0,0,dp);
-        return helper(s1,s2,0,0,dp);
+    public int minDistance(String word1, String word2) {
+         int[][] dp = new int[word1.length()+1][word2.length()+1];
+        for(int i = 0;i<=word1.length();i++) dp[i][0] = i;
+        for(int j = 0;j<=word2.length();j++) dp[0][j] = j;
+        for(int i = 0;i<word1.length();i++){
+            for(int j = 0;j<word2.length();j++){
+                if(word1.charAt(i) == word2.charAt(j)) dp[i+1][j+1] = dp[i][j];
+                else dp[i+1][j+1] = Math.min(dp[i][j],Math.min(dp[i+1][j],dp[i][j+1])) + 1;
+            }
+        }
+        return dp[word1.length()][word2.length()];
         
+        //return helper(s1,s2,0,0,dp); recursive solution....
+        // wrong solution....
+        // int len = s1.length()>s2.length()? s1.length() : s2.length();
+        // return len - lcs(s1,s2,0,0,dp);
     } 
     public int helper(String s1,String s2,int i,int j,int [][] dp){
       if(i==s1.length()) return s2.length()-j;
