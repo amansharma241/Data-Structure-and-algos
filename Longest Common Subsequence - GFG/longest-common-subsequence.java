@@ -31,8 +31,17 @@ class Solution
         // your code here
         if (s1.length()==0 || s2.length()==0) return 0;
         int [][] dp = new int[s1.length()+1][s2.length()+1];
-        
-        return helper(s1,s2,0,0,dp);
+        for(int i = 0;i<=s1.length();i++){
+            for(int j = 0;j<=s2.length();j++){
+                if(i==0 || j==0) dp[i][j] = 0;
+                else{
+                if(s1.charAt(i-1)==s2.charAt(j-1)) dp[i][j] = 1 + dp[i-1][j-1];
+                else dp[i][j] = Math.max(dp[i-1][j],dp[i][j-1]);
+            }
+            }
+        }
+        return dp[x][y];
+        //return helper(s1,s2,0,0,dp);
     }
     public static int helper(String s1, String s2,int i,int j,int [][] dp){
         if(i>=s1.length() || j>=s2.length()) return 0;
