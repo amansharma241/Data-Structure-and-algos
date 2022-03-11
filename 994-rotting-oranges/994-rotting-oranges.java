@@ -1,81 +1,55 @@
 class Solution {
    
-    // public int orangesRotting(int[][] grid) {
-    //   int fresh = 0;
-    //   int minutes = 0;
-    //   Queue<int []> q = new LinkedList<>();
-    //   for(int i = 0;i<grid.length;i++){
-    //       for(int j = 0;j<grid[0].length;j++){
-    //           if(grid[i][j]==2) q.offer(new int []{i,j});
-    //           else if(grid[i][j]==1) fresh++;
-    //       }
-    //   }
-    //     if(fresh==0) return 0;
-    //     int [][] dirs = {{-1,0},{1,0},{0,-1},{0,1}};
-    //     while(!q.isEmpty()){
-    //         int size = q.size();
-    //         minutes++;
-    //         while(size>0){
-    //             int [] arr = q.poll();
-    //             for(int [] dir : dirs){
-    //                int rdash = arr[0] + dir[0];
-    //                int cdash = arr[1] + dir[1];
-    //                 if(rdash>=0 && rdash<grid.length && cdash>=0 && cdash<grid[0].length&& grid[cdash][rdash]==1){
-    //                     q.offer(new int []{rdash,cdash});
-    //                     grid[rdash][cdash] = 2;
-    //                     fresh--;
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     if(fresh==0) return minutes-1;
-    //     else return -1;
-    // }
-      public int orangesRotting(int[][] grid) {
-        if(grid == null || grid.length == 0) return 0;
-        int rows = grid.length;
-        int cols = grid[0].length;
-        Queue<int[]> queue = new LinkedList<>();
-        int count_fresh = 0;
-        //Put the position of all rotten oranges in queue
-        //count the number of fresh oranges
-        for(int i = 0 ; i < rows ; i++) {
-            for(int j = 0 ; j < cols ; j++) {
-                if(grid[i][j] == 2) {
-                    queue.offer(new int[]{i , j});
-                }
-                else if(grid[i][j] == 1) {
-                    count_fresh++;
+    public int orangesRotting(int[][] grid) {
+      int fresh = 0;
+      int minutes = 0;
+      Queue<int []> queue = new LinkedList<>();
+      for(int i = 0;i<grid.length;i++){
+          for(int j = 0;j<grid[0].length;j++){
+              if(grid[i][j]==2) queue.offer(new int[]{i,j});
+              else if(grid[i][j]==1) fresh++;
+          }
+      }
+        if(fresh==0) return 0;
+        int [][] dirs = {{-1,0},{1,0},{0,-1},{0,1}};
+         while (!queue.isEmpty()) {
+            minutes++;
+            int size = queue.size(); //Rotten oranges simultaneously affect adjacent fresh oranges.
+            for(int i = 0; i < size; i++) {
+                //if using queue.size() instead of size, it will be not working properly, beacuse queue is changeable.
+                int[] now = queue.poll();
+                for (int[] dir : dirs) { //find fresh oragnes from adjacent directions.
+                    int x = now[0] + dir[0];
+                    int y = now[1] + dir[1];
+
+                    if (x > grid.length - 1 || x < 0 || y > grid[0].length - 1 || y < 0) continue;
+                    if (grid[x][y] == 1) {
+                        queue.offer(new int[]{x, y});
+                        grid[x][y] = 2; //rotten..!!
+                        fresh--;
+                    }
                 }
             }
         }
-        //if count of fresh oranges is zero --> return 0 
-        if(count_fresh == 0) return 0;
-        int count = 0;
-        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
-        //bfs starting from initially rotten oranges
-        while(!queue.isEmpty()) {
-            ++count;
-            int size = queue.size();
-            for(int i = 0 ; i < size ; i++) {
-                int[] point = queue.poll();
-                for(int dir[] : dirs) {
-                    int x = point[0] + dir[0];
-                    int y = point[1] + dir[1];
-                    //if x or y is out of bound
-                    //or the orange at (x , y) is already rotten
-                    //or the cell at (x , y) is empty
-                        //we do nothing
-                    if(x < 0 || y < 0 || x >= rows || y >= cols || grid[x][y] == 0 || grid[x][y] == 2) continue;
-                    //mark the orange at (x , y) as rotten
-                    grid[x][y] = 2;
-                    //put the new rotten orange at (x , y) in queue
-                    queue.offer(new int[]{x , y});
-                    //decrease the count of fresh oranges by 1
-                    count_fresh--;
-                }
-            }
-        }
-        return count_fresh == 0 ? count-1 : -1;
+        // while(!q.isEmpty()){
+        //     int size = q.size();
+        //     minutes++;
+        //     while(size>0){
+        //         int [] arr = q.poll();
+        //         //System.out.print(arr[1]);
+        //         for(int dir []  : dirs){
+        //            int rdash = arr[0] + dir[0];
+        //            int cdash = arr[1] + dir[1];
+        //             if(rdash<0 || rdash>=grid.length || cdash<0 || cdash>=grid[0].length || grid[rdash][cdash]==2 || grid[rdash][cdash]==0){
+        //                continue; 
+        //             }
+        //             q.offer(new int[]{rdash,cdash});
+        //             grid[rdash][cdash] = 2;
+        //             fresh--;
+        //         }
+        //     }
+        // }
+        if(fresh==0) return minutes-1;
+        else return -1;
     }
 }
