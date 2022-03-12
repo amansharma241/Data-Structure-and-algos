@@ -39,7 +39,7 @@ class Solution {
         Node ans = fake;
         while(curr!=null && fake!=null){
             curr.next = curr.next.next;
-            if(curr.next!=null){ // this line is necessary because it helps us in handling if we have a single node
+            if(curr.next!=null){ // this line is necessary because it helps us in handling when we are on last node....
                 fake.next = fake.next.next;
             }
             curr = curr.next;
