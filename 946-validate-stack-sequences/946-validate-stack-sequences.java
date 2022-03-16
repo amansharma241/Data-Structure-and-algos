@@ -1,15 +1,15 @@
 class Solution {
     public boolean validateStackSequences(int[] pushed, int[] popped) {
-       if(pushed==null || popped==null) return false;
-        Stack<Integer> st = new Stack<>();
-        int j = 0;
-        for(int num : pushed){
-            st.push(num);
-            while(!st.isEmpty() && popped[j]==st.peek()){
-                st.pop();
-                j++;
+        int i = 0; // Intialise one pointer pointing on pushed array
+        int j = 0; // Intialise one pointer pointing on popped array
+        
+        for(int val : pushed){
+            pushed[i++] = val; // using pushed as the stack.
+            while(i > 0 && pushed[i - 1] == popped[j]){ // pushed[i - 1] values equal to popped[j];
+                i--; // decrement i
+                j++; // increment j
             }
         }
-        return st.empty();
+        return i == 0; // Since push
     }
 }
