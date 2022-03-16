@@ -18,7 +18,7 @@ class Solution {
         
         // Do DFS for each of the array nodes to check a cycle
         for(int i=0; i<numCourses; i++) {
-            if( !dfs(i, visited, adj))
+            if( dfs(i, visited, adj)==false)
                 return false;
         }
         
