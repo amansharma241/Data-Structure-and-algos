@@ -62,7 +62,7 @@ public class Codec {
     private TreeNode helper(Queue<String> queue) {
         String s = queue.poll();
         if (s.equals("#")) return null;
-        TreeNode root = new TreeNode(Integer.valueOf(s));
+        TreeNode root = new TreeNode(Integer.parseInt(s));
         root.left = helper(queue);
         root.right = helper(queue);
         return root;
