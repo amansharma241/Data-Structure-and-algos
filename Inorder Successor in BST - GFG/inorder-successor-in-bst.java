@@ -130,17 +130,26 @@ class Solution
          {
           //add code here.
           
-          if(root==null) return null;
+           if(root==null) return null;
           
-          //if(root==x) return root;
-           if(root.data>x.data){
-              ans = root;
-              inorderSuccessor(root.left,x);
-          }
-          else {
-              inorderSuccessor(root.right,x);
-          }
-          return ans;
-          
+        //   //if(root==x) return root;
+        //   if(root.data>x.data){
+        //       ans = root;
+        //       inorderSuccessor(root.left,x);
+        //   }
+        //   else {
+        //       inorderSuccessor(root.right,x);
+        //   }
+        //   return ans;
+        Node successor = null;
+        
+        while(root!=null){
+            if(x.data>=root.data) root = root.right;
+            else{
+                successor = root;
+                root = root.left;
+            }
+        }
+          return successor;
          }
 }
