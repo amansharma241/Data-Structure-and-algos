@@ -33,19 +33,19 @@ class Solution {
                 return root.left;
             }
             else{
-                int max = max(root.left);
-                root.val=max;
-                root.left=deleteNode(root.left,max);
-                return root;
+                TreeNode rightChild = root.right;
+                TreeNode maxChild = max(root.left);
+                maxChild.right = rightChild;
+                return root.left;
             }
         }
         return root;
     }
-    public int max(TreeNode root){
-        int max = Integer.MIN_VALUE;
+    public TreeNode max(TreeNode root){
+        //int max = Integer.MIN_VALUE;
         while(root.right!=null){
             root=root.right;
         }
-        return root.val;
+        return root;
     }
 }
