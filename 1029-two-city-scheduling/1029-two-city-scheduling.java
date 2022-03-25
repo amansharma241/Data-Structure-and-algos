@@ -1,16 +1,17 @@
 class Solution {
     public int twoCitySchedCost(int[][] costs) {
-        Arrays.sort(costs, (a, b) -> {
-            return (a[0] - a[1]) - (b[0] - b[1]);
-        });
-        
-        int price = 0;
-        for(int i = 0; i < costs.length / 2; i++){
-            price += costs[i][0];
+        int N = costs.length * 1/2;
+        int minCost = 0;
+        int idx = 0;
+        int[] refund = new int[2*N];
+        for(int[] cost : costs) {
+            refund[idx++] = cost[1] - cost[0];
+            minCost += cost[0];
         }
-        for(int i = costs.length / 2; i < costs.length; i++){
-            price += costs[i][1];
+        Arrays.sort(refund);
+        for (int i = 0; i < N; i++) {
+            minCost += refund[i];
         }
-        return price;
+        return minCost;
     }
 }
