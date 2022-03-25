@@ -1,31 +1,34 @@
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        HashMap<String,Boolean> map=new HashMap<>();
-        for(String s:wordList)
-            map.put(s,false);
-        if(!map.containsKey(endWord))
-            return 0;
-        map.put(beginWord,true);
-        Queue<String> q=new ArrayDeque<>();
-        q.add(beginWord);
-        int count=1;
+       HashSet<String> set = new HashSet<>();
+        for(String str: wordList){
+            set.add(str);
+        }
+        if(!set.contains(endWord)) return 0;
+        Queue<String> q = new LinkedList<>();
+        q.offer(beginWord);
+        int level = 1;
         while(!q.isEmpty()){
-            int size=q.size();
+            int size = q.size();
             while(size-->0){
-                String s=q.remove();
-                if(s.equals(endWord))
-                    return count;
-                for(int i=0;i<s.length();i++){
-                    for(int j=0;j<26;j++){
-                        String temp=s.substring(0,i)+(char)(j+'a')+s.substring(i+1);
-                        if(map.containsKey(temp) && map.get(temp)==false){
-                            q.add(temp);
-                            map.put(temp,true);
-                        }
+                String str = q.poll();
+                char [] char_arr = str.toCharArray();
+                for(int i=0;i<str.length();i++){
+                    char c_operate = char_arr[i];
+                    for(char c = 'a';c<='z';c++){
+                        if(c_operate==c) continue;
+                        char_arr[i] = c;
+                        String newWord = String.valueOf(char_arr);
+                        if(newWord.equals(endWord)) return level+1;
+                        if(set.contains(newWord)){
+                          q.offer(newWord);
+                          set.remove(newWord);
+                      }
                     }
+                    char_arr[i] = c_operate;
                 }
             }
-            count++;
+            level++;
         }
         return 0;
     }
