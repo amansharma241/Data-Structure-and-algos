@@ -12,10 +12,11 @@ class Solution {
         }
         
         for(int i=ind;i<arr.length;i++){
-            if(i==ind || arr[i]!=arr[i-1]){
+            if(i==ind || arr[i]!=arr[i-1]){ // thik hai agar ind pe hai kyoki ind se hi call start kari hai
+                                            // agar pichla wala element same hua to koi matlab nhi hua phir                                             //kaam krne ka
             ds.add(arr[i]);
-            helper(res,ds,arr,target-arr[i],i+1);
-            ds.remove(ds.size()-1);
+            helper(res,ds,arr,target-arr[i],i+1); // picking element
+            ds.remove(ds.size()-1);       // wapas aate hue element uda diya , mtlb ab not picking wale                                               //recursion ke raste pe jayenge
             }
         }
     }
