@@ -141,18 +141,23 @@ class Solution
         ArrayList<Integer> list = new ArrayList<>();
         if(root==null) return list;
         Queue<Tuple> q = new LinkedList<>();
-        Map<Integer,Integer> map = new TreeMap<>();
+        Map<Integer,Integer> map = new HashMap<>();
         q.offer(new Tuple(root,0));
+        int maxlevel = 0,minlevel = 0;
         while(!q.isEmpty()){
-            
+            int size = q.size();
+            while(size-->0){
                 Tuple front = q.poll();
                 if(!map.containsKey(front.level)) map.put(front.level,front.node.data);
                 
                 if(front.node.left!=null) q.offer(new Tuple(front.node.left,front.level-1));
                 if(front.node.right!=null) q.offer(new Tuple(front.node.right,front.level+1));
+                minlevel = Math.min(minlevel,front.level);
+                maxlevel = Math.max(maxlevel,front.level);
             }
-            for(Map.Entry<Integer,Integer> entry: map.entrySet()){
-                    list.add(entry.getValue());
+        }
+            for(int i = minlevel;i<=maxlevel;i++){
+                    list.add(map.get(i));
             }
         return list;
     }
