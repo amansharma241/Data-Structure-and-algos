@@ -25,7 +25,7 @@ class Solution {
         temp.add(root.val);
         if(root.left==null && root.right==null && root.val==target){
             res.add(new ArrayList<>(temp)); 
-           
+            //return;
         }
         helper(root.left,res,temp,target-root.val);
         helper(root.right,res,temp,target-root.val);
