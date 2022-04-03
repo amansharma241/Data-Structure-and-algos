@@ -13,7 +13,7 @@ class Solution {
             }
             st.push(nums2[i]);
         }
-        System.out.println(map.get(1));
+       // System.out.println(map.get(1));
         if(!st.isEmpty()){
             while(!st.isEmpty()){
             if(map.containsKey(st.peek())){
