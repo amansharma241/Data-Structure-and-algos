@@ -1,19 +1,12 @@
 class Solution {
-    public int findUnsortedSubarray(int[] nums) {
-       if(nums.length==1) return 0;
-        int [] dup = new int [nums.length];
-        for(int i=0;i<nums.length;i++){
-            dup[i] = nums[i];
-        }
-        Arrays.sort(dup);
-        int k=0;
-        int j=nums.length-1;
-        for(int i=0;i<=nums.length-1;i++){
-            if(nums[i]!=dup[i]){
-                k = Math.max(i,k);
-                j = Math.min(i,j);
-            }
-        }
-        return (k-j>=0 ? k-j+1:0);
+    public int findUnsortedSubarray(int[] A) {
+    int n = A.length, beg = -1, end = -2, min = A[n-1], max = A[0];
+    for (int i=1;i<n;i++) {
+      max = Math.max(max, A[i]);
+      min = Math.min(min, A[n-1-i]);
+      if (A[i] < max) end = i;
+      if (A[n-1-i] > min) beg = n-1-i; 
     }
+    return end - beg + 1;
+}
 }
