@@ -10,8 +10,9 @@ class Solution {
 		int zero = countZeros(strs[index]);
 		int one = strs[index].length() - zero;
 		
-		int res = helper(index + 1, m, n, strs, memo);
+		int res = helper(index + 1, m, n, strs, memo); // skipped that string element..
 		if (m >= zero && n >= one)
+            //helper(index + 1, m - zero, n - one, strs, memo) represents taking that element....
 			res = Math.max(res, 1 + helper(index + 1, m - zero, n - one, strs, memo));
 		
 		return memo[index][m][n] = res;
