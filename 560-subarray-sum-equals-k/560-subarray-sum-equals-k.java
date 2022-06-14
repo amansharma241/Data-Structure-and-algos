@@ -1,22 +1,17 @@
 class Solution {
     public int subarraySum(int[] nums, int target) {
-        
-        //wrong code....
         // if(nums==null) return 0;
-        // int count = 0;
         // int [] prefix = new int[nums.length];
+        // Map<Integer,Integer> map = new HashMap<>();
         // prefix[0] = nums[0];
+        // map.put(0,1);
         // for(int i=1;i<nums.length;i++){
-        //     prefix[i] = nums[i] + prefix[i-1];
+        //     prefix[i] = prefix[i-1] + nums[i];
+        //     map.put(prefix[i],map.getOrDefault(prefix[i],0)+1);
         // }
-        // Set<Integer> set = new HashSet<>();
-        // set.add(prefix[0]);
-        // set.add(0);
-        // for(int i=1;i<prefix.length;i++){
-        //     if(set.contains(prefix[i]-k)) count++;
-        //     set.add(prefix[i]);
+        // for(int i=0;i<nums.length;i++){
+        //     if(map.containsKey())
         // }
-        // return count;
         
         int count = 0;
         HashMap<Integer,Integer> map = new HashMap<>();
