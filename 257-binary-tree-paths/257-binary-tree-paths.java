@@ -15,20 +15,21 @@
  */
 class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
-        List<String> result = new ArrayList<>();
-        if(root==null) return result;
-        
-        dfs(root,"",result);
-        return result;
+        ArrayList<String> list = new ArrayList<>();
+        if(root==null) return list;
+        String path = "";
+        helper(root,path,list);
+        return list;
     }
-    public void dfs(TreeNode root , String path , List<String> result){
-        path+= root.val;
-        
+    public void helper(TreeNode root,String path,ArrayList<String> list){
+        if(root==null) return;
+        path+=root.val;
         if(root.left==null && root.right==null){
-            result.add(path);
+            list.add(path);
             return;
         }
-        if(root.left!=null) dfs(root.left,path + "->",result);
-        if(root.right!=null) dfs(root.right , path + "->" , result);
+        helper(root.left,path + "->",list);
+        helper(root.right,path + "->",list);
+        //path-=root.val;
     }
 }
