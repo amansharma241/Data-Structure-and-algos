@@ -31,10 +31,8 @@ class Solution {
             count+=map.get(currsum-target);
         }
         map.put(currsum,map.getOrDefault(currsum,0) + 1);
-        
-        int left = sumhelper(root.left,target,currsum,map);
-        int right = sumhelper(root.right,target,currsum,map);
-        count = count + left + right;
+         
+        count = count + sumhelper(root.left,target,currsum,map) +sumhelper(root.right,target,currsum,map);
         map.put(currsum, map.get(currsum)-1);
         
         return count;
