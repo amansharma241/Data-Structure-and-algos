@@ -25,7 +25,6 @@ class Solution {
         sublist.add(root.val);
         if(root.left==null && root.right==null && target==root.val){
             list.add(new ArrayList<>(sublist));
-            
         }
         helper(sublist,root.left,list,target-root.val);
         helper(sublist,root.right,list,target-root.val);
