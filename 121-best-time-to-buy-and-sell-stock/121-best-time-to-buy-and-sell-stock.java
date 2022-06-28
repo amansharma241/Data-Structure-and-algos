@@ -11,6 +11,6 @@ class Solution {
            
         }
         if(maxpro<0) return 0;
-        else return maxpro;
+         return maxpro;
     }
 }
