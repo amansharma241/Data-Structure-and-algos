@@ -1,16 +1,18 @@
 class Solution {
     public int longestStrChain(String[] words) {
-        Map<String, Integer> dp = new HashMap<>();
-        Arrays.sort(words, (a, b)->a.length() - b.length());
+        Arrays.sort(words,(a,b)-> a.length()-b.length());
+        Map<String,Integer> map = new HashMap<>();
         int res = 0;
-        for (String word : words) {
-            int best = 0;
-            for (int i = 0; i < word.length(); ++i) {
-                String prev = word.substring(0, i) + word.substring(i + 1);
-                best = Math.max(best, dp.getOrDefault(prev, 0) + 1);
+        for(String word: words){
+            map.put(word,1);
+            for(int i=0;i<word.length();i++){
+                StringBuilder curr = new StringBuilder(word);
+                String next = curr.deleteCharAt(i).toString();
+                if(map.containsKey(next)&& map.get(word)<map.get(next)+1){
+                    map.put(word,map.get(next)+1);
+                }
             }
-            dp.put(word, best);
-            res = Math.max(res, best);
+            res = Math.max(res,map.get(word));
         }
         return res;
     }
